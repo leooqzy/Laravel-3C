@@ -12,7 +12,9 @@ class ExplorerController extends Controller
      */
     public function index()
     {
-        //
+        $explorers = Explorer::all();
+
+        return response()->json($explorers);
     }
 
     /**
@@ -28,18 +30,20 @@ class ExplorerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
-            'age' => 'required',
+            'age' => 'required|numeric',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
 
-        Explorer::create($request->all());
+        $explorer = Explorer::create($validated);
 
         return response()->json([
             'message' => 'Explorer created successfully',
-        ]);
+            'explorer ' => $explorer,
+        ], 201);
+
     }
 
     /**

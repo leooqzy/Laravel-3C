@@ -9,7 +9,8 @@ class Explorer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name',
+    protected $fillable = [
+        'name',
         'age',
         'latitude',
         'longitude',

@@ -20,15 +20,27 @@ class ItemController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'explorer_id' => 'required',
+            'description' => 'required',
+            'value' => 'required',
+        ]);
+
+        $item = Item::create($validated);
+
+        return response()->json([
+            'message' => 'Item created successfully',
+            'item ' => $item,
+        ], 201);
+
     }
 
     /**
@@ -52,7 +64,11 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        //
+        $request->validate([
+            'name' => $request->name,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+        ]);
     }
 
     /**
