@@ -30,7 +30,7 @@ Route::post('/itens',
     [ItemController::class,
         'store']);
 
-Route::put('/itens/{id}',
+Route::put('/itens/{item}',
     [ItemController::class,
         'update']);
 

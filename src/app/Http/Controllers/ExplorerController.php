@@ -68,13 +68,16 @@ class ExplorerController extends Controller
     public function update(Request $request, Explorer $explorer)
     {
         $request->validate([
-            'name' => 'required',
-            'age' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
         ]);
 
         $explorer->update($request->all());
+    
+            return response()->json([
+                'message' => 'Explorer updated successfully',
+                'explorer' => $explorer,
+            ]);
     }
 
     /**
