@@ -34,11 +34,15 @@ Route::put('/itens/{id}',
     [ItemController::class,
         'update']);
 
+Route::get('/itens',
+    [ItemController::class,
+        'index']);
+
 Route::post('/explorers',
     [ExplorerController::class,
         'store']);
 
-Route::put('/explorers/{id}',
+Route::put('/explorers/{explorer}',
     [ExplorerController::class,
         'update']);
 
