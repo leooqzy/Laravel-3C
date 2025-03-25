@@ -30,6 +30,10 @@ Route::post('/itens',
     [ItemController::class,
         'store']);
 
+Route::put('/itens/trade',
+    [ItemController::class,
+        'trade']);
+
 Route::put('/itens/{id}',
     [ItemController::class,
         'update']);
@@ -49,3 +53,4 @@ Route::put('/explorers/{explorer}',
 Route::get('/explorers',
     [ExplorerController::class,
         'index']);
+

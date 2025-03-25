@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Explorer;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -20,10 +21,7 @@ class ItemController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
     public function store(Request $request)
     {
@@ -42,7 +40,6 @@ class ItemController extends Controller
             'message' => 'Item created successfully',
             'item ' => $item,
         ], 201);
-
     }
 
     /**
@@ -66,6 +63,7 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
+
         $request->validate([
             'name' => $request->name,
             'latitude' => $request->latitude,
@@ -73,11 +71,48 @@ class ItemController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Item $item)
+    public function trade(Request $request)
     {
-        //
+
+        $request->validate([
+            'new_explorer_id' => 'required|exists:explorers,id',
+            'new_item_id' => 'required|exists:items,id',
+            'new_explorer_id2 ' => 'required|exists:explorers,id',
+            'new_item_id2' => 'required|exists:items,id',
+        ]);
+
+        $explorer = Explorer::findOrFail($request->new_explorer_id);
+        $item = Item::findOrFail($request->new_item_id);
+        $explorer2 = Explorer::findOrFail($request->new_explorer_id2);
+        $item2 = Item::findOrFail($request->new_item_id2);
+
+        $ItemTotal = 0;
+        $ItemTotal2 = 0;
+
+        $ItemTotal = $item->value;
+        $ItemTotal2 = $item2->value;
+
+
+        if ($ItemTotal == $ItemTotal2) {
+            $item->update([
+                'explorer_id2' => $request->new_explorer_id,
+            ]);
+
+            $item2->update([
+                'explorer_id' => $request->new_explorer_id2,
+            ]);
+
+            return response()->json([
+                'message' => 'Item traded successfully',
+                'item' => $item,
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'value not compatible',
+            ]);
+        }
+        /**
+         * Remove the specified resource from storage.
+         */
     }
 }
