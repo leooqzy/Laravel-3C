@@ -31,7 +31,7 @@ class ItemController extends Controller
             'longitude' => 'required',
             'explorer_id' => 'required',
             'description' => 'required',
-            'value' => 'required',
+            'price' => 'required',
         ]);
 
         $item = Item::create($validated);
@@ -65,9 +65,15 @@ class ItemController extends Controller
     {
 
         $request->validate([
-            'name' => $request->name,
-            'latitude' => $request->latitude,
-            'longitude' => $request->longitude,
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
+        ]);
+
+        $item->update($request->all());
+
+        return response()->json([
+            'message' => 'Item updated successfully',
+            'item' => $item,
         ]);
     }
 

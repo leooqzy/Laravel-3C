@@ -18,7 +18,7 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('name');
             $table->string('description');
-            $table->decimal('value', 8, 2);
+            $table->decimal('price', 8, 2);
             $table->string('latitude');
             $table->string('longitude');
             $table->timestamps();
