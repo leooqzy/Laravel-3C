@@ -31,7 +31,7 @@ class ItemController extends Controller
             'longitude' => 'required',
             'explorer_id' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'value' => 'required',
         ]);
 
         $item = Item::create($validated);
@@ -79,11 +79,10 @@ class ItemController extends Controller
 
     public function trade(Request $request)
     {
-
         $request->validate([
             'new_explorer_id' => 'required|exists:explorers,id',
             'new_item_id' => 'required|exists:items,id',
-            'new_explorer_id2 ' => 'required|exists:explorers,id',
+            'new_explorer_id2' => 'required|exists:explorers,id',
             'new_item_id2' => 'required|exists:items,id',
         ]);
 
@@ -101,11 +100,11 @@ class ItemController extends Controller
 
         if ($ItemTotal == $ItemTotal2) {
             $item->update([
-                'explorer_id2' => $request->new_explorer_id,
+                'explorer_id' => $request->new_explorer_id2,
             ]);
 
             $item2->update([
-                'explorer_id' => $request->new_explorer_id2,
+                'explorer_id' => $request->new_explorer_id,
             ]);
 
             return response()->json([

@@ -12,7 +12,7 @@ class Item extends Model
     protected $fillable = [
         'name',
         'description',
-        'price',
+        'value',
         'latitude',
         'longitude',
         'explorer_id',
